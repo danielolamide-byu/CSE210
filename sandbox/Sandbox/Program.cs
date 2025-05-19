@@ -1,16 +1,24 @@
 using System;
+using System.Collections.Generic;
 
-class Program
+public class NoteBook
 {
-    static void Main(string[] args)
-    {
-        Console.Write("What is your first name? ");
-        string firstname = Console.ReadLine();
-        Console.WriteLine(firstname);
-        
-        Console.Write("What is your lastname? ");
-        string lastname = Console.ReadLine();
+    // A list to hold the sentences
+    public List<string> Sentences = new List<string>();
 
-        Console.WriteLine($"Your name is {lastname}, {firstname} {lastname}.");
+    // Method to add a sentence to the list
+    public void AddSentence(string sentence)
+    {
+        Sentences.Add(sentence);
+    }
+
+    // Method to display all sentences
+    public void DisplaySentences()
+    {
+        Console.WriteLine("Sentences in the notebook:");
+        foreach (string s in Sentences)
+        {
+            Console.WriteLine("- " + s);
+        }
     }
 }
