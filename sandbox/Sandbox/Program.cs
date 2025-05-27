@@ -1,24 +1,27 @@
 using System;
 using System.Collections.Generic;
-
-public class NoteBook
+Console.Clear();
+Console.WriteLine("AAA");
+Console.ReadLine();
+while (true)
 {
-    // A list to hold the sentences
-    public List<string> Sentences = new List<string>();
 
-    // Method to add a sentence to the list
-    public void AddSentence(string sentence)
-    {
-        Sentences.Add(sentence);
-    }
+    List<string> _list = new List<string>()
+{
+    "AAA", "BBB"
+};
 
-    // Method to display all sentences
-    public void DisplaySentences()
+
+    foreach (string letter in _list)
     {
-        Console.WriteLine("Sentences in the notebook:");
-        foreach (string s in Sentences)
-        {
-            Console.WriteLine("- " + s);
-        }
+        Random rand = new Random();
+        int randp = rand.Next(_list.Count);
+        string sel = _list[randp];
+        //Console.WriteLine(sel);
+        string section = letter.Replace("AAA", "---");
+        //Console.Clear();
+
+        Console.Write(section);
+
     }
 }

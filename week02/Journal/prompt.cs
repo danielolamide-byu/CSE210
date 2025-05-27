@@ -18,31 +18,33 @@ public class Prompt
         "What did I do today that increases my aith in Jesus Christ?",
         "What did I do today to imporve myself?"
     };
-
+      //List Instance or List Object.
     public List<JournalEntry> _response = new List<JournalEntry>();
 
+    //Write Method.
     public void writeEntry()
     {
-        Random randomGenerator = new Random();
-        int randPrompt = randomGenerator.Next(_prompt.Count);
-        string selected = _prompt[randPrompt];
+        Random _randomGenerator = new Random();
+        int _randPrompt = _randomGenerator.Next(_prompt.Count);
+        string _selected = _prompt[_randPrompt];
 
 
         Console.WriteLine();
         Console.Write("Journal prompt: ");
-        Console.WriteLine(selected);
+        Console.WriteLine(_selected);
         Console.Write("Response: ");
         string _responses = Console.ReadLine();
-
-        JournalEntry entry = new JournalEntry(selected, _responses);
-        _response.Add(entry);
+           
+        //Instance Or Object.
+        JournalEntry _entry = new JournalEntry(_selected, _responses);
+        _response.Add(_entry);
     }
 
     public void DisplayAll()
     {
-        foreach (JournalEntry entry in _response)
+        foreach (JournalEntry line in _response)
         {
-            entry.Display();
+            line.Display();
         }
     }
 

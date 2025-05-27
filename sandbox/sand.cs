@@ -1,18 +1,25 @@
 using System;
 
-class Program
+public class Blind
 {
     static void Main(string[] args)
     {
-        // Create an instance of the class
-        NoteBook myNotebook = new NoteBook();
+        public double _width;
+    public double _height;
+    public string _color;
 
-        // Add some sentences
-        myNotebook.AddSentence("This is my first note.");
-        myNotebook.AddSentence("C# is fun!");
-        myNotebook.AddSentence("I'm learning how to use lists in a class.");
 
-        // Show all the sentences
-        myNotebook.DisplaySentences();
+    Blind kitchen = new Blind();
+        {
+
+    kitchen._width = 60;
+    kitchen._height = 48;
+    kitchen._color = "white";
+    
+    Console.WriteLine(kitchen._width);
+        }
+
     }
+
+
 }

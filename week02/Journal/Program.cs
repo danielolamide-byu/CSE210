@@ -13,6 +13,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        // Instance or Object.
         Prompt myJournal = new Prompt();
 
         //string myJournal = new Journal();
