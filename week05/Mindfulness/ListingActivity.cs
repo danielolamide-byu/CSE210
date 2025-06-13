@@ -14,7 +14,7 @@ public class ListingActivity : Activity
         "Who are some of your personal heroes?"
     };
 
-    public ListingActivity() : base("Listing Activity", "This activity helps you reflect on good things in your life.")
+    public ListingActivity() : base("Listing Activity", "This activity helps you reflect on good things in your life.", 30)
     {
     }
 
@@ -26,6 +26,7 @@ public class ListingActivity : Activity
 
         Console.Clear();
         Console.WriteLine("Getting ready...");
+        ShowSpinnerAnimation();
         Thread.Sleep(2000);
 
         Console.WriteLine("List as many responses as you can to the following prompt:");
@@ -33,25 +34,31 @@ public class ListingActivity : Activity
         Console.WriteLine($"--- {prompt} ---");
 
         Console.WriteLine("You may begin in:");
-        for (int i = 3; i > 0; i--)
-        {
-            Console.WriteLine(i);
-            Thread.Sleep(1000);
-        }
+        ShowCountDownAnimation();
 
         Console.WriteLine("Start listing responses (press Enter after each):");
 
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(times);
 
-        while (DateTime.Now < endTime)
+        while (true)
         {
-            Console.ReadLine();
-            _count++;
-        }
+            if (DateTime.Now < endTime)
+            {
+                Console.ReadLine();
+                _count++;
+            }
+            else
+            {
+               // Console.WriteLine("");
+                Console.WriteLine($"You entered {_count} items.");
+                Console.WriteLine($"You have completed another {_duration} the Listing activity.");
 
-        Console.WriteLine($"You entered {_count} items.");
+                break;
+            }
+        }
     }
+    
 
     public string GetRandomPrompt()
     {
