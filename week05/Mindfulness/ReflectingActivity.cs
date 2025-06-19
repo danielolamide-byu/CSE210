@@ -3,29 +3,39 @@
 using System.ComponentModel;
 using System.Security.AccessControl;
 using System.Xml.Linq;
+using System.IO;
 
 public class ReflectingActivity : Activity
 {
     protected List<string> _reflectionPrompts;
-    protected List<string> _questions;
+//    protected List<string> _questions;
 
     public ReflectingActivity(string name, string description, int duration, List<string> reflectionPrompts, List<string> questions) : base(name, description, duration)
     {
         _reflectionPrompts = reflectionPrompts;
-        _questions = questions;
+       // _questions = questions;
     }
+    
+         List<string> _questions = new List<string>()
+     {
+        "Why was this experience meaningful to you?",
+        "Have you ever done anything like this before?",
+        "How did you get started?",
+        "How did you feel when it was complete?",
+        "What made this time different than other times when you were not as successful?",
+        "What is your favorite thing about this experience?",
+        "What could you learn from this experience that applies to other situations?",
+        "What did you learn about yourself through this experience?",
+        "How can you keep this experience in mind in the future?"
+};
     //public ReflectingActivity(string name, string description, int duration) : base(name, description, duration)
 
 
     public void ReflectionActivity()
     {
-        Console.Write("How  long in seconds would you like to do this activity? ");
-        string _duration = Console.ReadLine();
-        int duration = int.Parse(_duration);
-        Console.Clear();
         Console.WriteLine("Get ready...");
-        Thread.Sleep(5000);
-        //Animation.
+        //Thread.Sleep(5000);
+        ShowSpinnerAnimation();
         Console.WriteLine("");
         Console.WriteLine("Consider the following prompts:");
         Console.WriteLine("");
@@ -34,10 +44,16 @@ public class ReflectingActivity : Activity
         Console.Write("When you have something in mind, press enter...");
         string _enter = Console.ReadLine();
         Console.WriteLine("");
-        Console.Write("Now ponder on the following questions as they relate to you. \nYou may begin in ");
-        Thread.Sleep(5000);
+        Console.WriteLine("Now ponder on the following questions as they relate to you. \nYou may begin in ");
+        ShowCountDownAnimation();
+        //Thread.Sleep(5000);
         Console.Clear();
-     }
+        GetRandomQuestions(_duration);
+        Console.WriteLine("");
+        DisplayEndingMessage();
+        Console.WriteLine($"You have completed {_duration} seconds of the Reflecting Activity!");
+        SaveActivity();
+    }
 
     public string GetRandomPrompt()
     {
@@ -47,19 +63,29 @@ public class ReflectingActivity : Activity
         return _selectedPrompt;
     }
 
-    public string GetRandomQuestion(int durationInSeconds)
+
+
+    public string GetRandomQuestions(int duration)
     {
-        Random _randomGeneratorForQuestions = new Random();
+        Random random = new Random();
+        List<string> askedQuestions = new List<string>();
         DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(durationInSeconds);
+        DateTime endTime = startTime.AddSeconds(duration);
+
         while (DateTime.Now < endTime && _questions.Count > 0)
         {
-            int _randomQuestion = _randomGeneratorForQuestions.Next(_questions.Count);
-            string _selectedQuestion = _questions[_randomQuestion];
-            _questions.RemoveAt(_randomQuestion);        //Avoid asking the same question more than once.
+            int index = random.Next(_questions.Count);
+            string selectedQuestion = _questions[index];
+
+            askedQuestions.Add(selectedQuestion);
+            _questions.RemoveAt(index);
+
+            Console.WriteLine(selectedQuestion);
+            ShowSpinnerAnimation();
+            Thread.Sleep(1000);
         }
-        return string.Join("\n", _questions);
-         }
+        return string.Join("\n", "0");
+    }
 
     public void DisplayRandomPrompt()
     {
@@ -68,17 +94,13 @@ public class ReflectingActivity : Activity
 
     public void DisplayRandomQuestion()
     {
-        int durationInSeconds = 30;
-        Console.WriteLine($"{GetRandomQuestion(durationInSeconds)}");
+        int durationInSeconds = _duration;
+        Console.WriteLine($"{GetRandomQuestions(durationInSeconds)}");
     }
-
-
     public void Run()
     {
         ReflectionActivity();
-         DisplayRandomQuestion();
-
-        
-    }
+        //DisplayRandomQuestion();
+     }
 
 }

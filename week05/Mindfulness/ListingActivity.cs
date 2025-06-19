@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.IO;
 
 public class ListingActivity : Activity
 {
@@ -14,32 +15,28 @@ public class ListingActivity : Activity
         "Who are some of your personal heroes?"
     };
 
-    public ListingActivity() : base("Listing Activity", "This activity helps you reflect on good things in your life.", 30)
+    public ListingActivity(int duration) : base("Listing Activity", "This activity helps you reflect on good things in your life.", duration)
     {
     }
 
     public void ListingActivities()
     {
-        Console.Write("Enter the duration in seconds: ");
-        string time = Console.ReadLine();
-        int times = int.Parse(time);
-
+        //DisplayStartingMessageForListingActivity();
+        //Thread.Sleep(2000);
         Console.Clear();
         Console.WriteLine("Getting ready...");
         ShowSpinnerAnimation();
-        Thread.Sleep(2000);
-
         Console.WriteLine("List as many responses as you can to the following prompt:");
         string prompt = GetRandomPrompt();
         Console.WriteLine($"--- {prompt} ---");
 
-        Console.WriteLine("You may begin in:");
+        Console.WriteLine("\nYou may begin in:");
         ShowCountDownAnimation();
 
         Console.WriteLine("Start listing responses (press Enter after each):");
 
         DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(times);
+        DateTime endTime = startTime.AddSeconds(_duration);
 
         while (true)
         {
@@ -50,16 +47,15 @@ public class ListingActivity : Activity
             }
             else
             {
-               // Console.WriteLine("");
+                // Console.WriteLine("");
+                DisplayEndingMessage();
                 Console.WriteLine($"You entered {_count} items.");
-                Console.WriteLine($"You have completed another {_duration} the Listing activity.");
-
+                Console.WriteLine($"You have completed another {_duration} seconds the Listing activity.");
+                SaveActivity();
                 break;
             }
         }
     }
-    
-
     public string GetRandomPrompt()
     {
         Random randomGenerator = new Random();
@@ -67,8 +63,15 @@ public class ListingActivity : Activity
         return _prompts[randIndex];
     }
 
-    public void Run()
+    public void Rune()
     {
+       
         ListingActivities();
     }
+
+   
 }
+
+
+
+

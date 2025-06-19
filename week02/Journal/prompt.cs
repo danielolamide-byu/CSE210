@@ -15,7 +15,7 @@ public class Prompt
         "If I had one thing I could do over today, what would it be?",
         "What made me unhappy today?",
         "What was the most important thing I accomplished today?",
-        "What did I do today that increases my aith in Jesus Christ?",
+        "What did I do today that increased my faith in Jesus Christ?",
         "What did I do today to imporve myself?"
     };
       //List Instance or List Object.
